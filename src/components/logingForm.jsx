@@ -1,19 +1,51 @@
 import React, { Component } from 'react';
 
 class LoginForm extends Component {
-    state = {  }
+    state = { 
+        account:{
+            username:'',
+            password:''
+        }
+     }
+    username=React.createRef()
+    handleSubmit=e=>{
+        e.preventDefault()
+        const username=this.username.value
+    }
+    handleChange=e=>{
+       const account={...this.state.account}
+       account[e.currentTarget.name]=e.currentTarget.value;
+       this.setState({account})
+    }
+    componentDidMount(){
+        this.username.current.focus()
+    }
     render() { 
         return ( 
         <div>
-            <h1>Log</h1>
-                <form action="">
+            <h1>Login</h1>
+                <form onSubmit={this.handleSubmit} action="">
                     <div id='username'  className="form-group">
                         <label htmlFor="username">
-                            </label>username<input type="text" className="form-control"/>
+                            </label>username
+                            <input type="text" className="form-control" 
+                            ref={this.username}
+                            value={this.state.account.username}
+                            onChange={this.handleChange}
+                            name='username'
+                            type='text'
+                            />
                         </div>
                     <div id='Password' className="form-group">
                         <label htmlFor="Password">Password</label>
-                    <input type="text" className="form-control"/>
+                    <input type="text" 
+                    className="form-control" 
+                    value={this.state.account.password}
+                    onChange={this.handleChange}
+                    name='password'
+                    type='text'
+
+                     />
                     </div>
                     <button className="btn btn-primary">Log in</button>
                 </form>
