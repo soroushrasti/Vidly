@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Input = (props) => {
+const Input = ({name,label,volume,onChange}) => {
     return ( <h1></h1> );
 }
  

@@ -5,14 +5,19 @@ class LoginForm extends Component {
         account:{
             username:'',
             password:''
-        }
+        },
+        errors:''
      }
     username=React.createRef()
     handleSubmit=e=>{
         e.preventDefault()
-        const username=this.username.value
+        const errors=this.validate()
+        this.setState({errors: errors || {} })
+        if (errors) return;
     }
     handleChange=e=>{
+        const errors={...this.state.errors}
+        const error_message=this.validateProperty(e.currentTarget)
        const account={...this.state.account}
        account[e.currentTarget.name]=e.currentTarget.value;
        this.setState({account})
