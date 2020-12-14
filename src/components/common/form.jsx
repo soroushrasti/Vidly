@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser'
+import Input from './input'
 
 class Form extends Component {
     state = { data:{},
@@ -39,7 +40,7 @@ doSubmit=()=>{
    data[e.currentTarget.name]=e.currentTarget.value;
    this.setState({data,errors})
 }
-renderButtom=(label)=>{
+renderButton=(label)=>{
     return (
         <button disabled={this.validate} className="btn btn-primary">{label}</button>
     )
