@@ -1,5 +1,4 @@
 import React from 'react';
-import Input from './common/input'
 import Joi from 'joi-browser'
 import Form from './common/form'
 
@@ -11,7 +10,7 @@ class LoginForm extends Form {
         },
         errors:{}
      }
-    username=React.createRef()
+    //username=React.createRef()
 
     schema={
         username:Joi.string().required().label('Username'),

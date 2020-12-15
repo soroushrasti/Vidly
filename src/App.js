@@ -7,6 +7,7 @@ import LoginForm from './components/logingForm'
 import Customers from './components/customers'
 import NotFound from './components/notFound'
 import Registration from './components/registrationForm'
+import NewMovieForm from './components/newMovieForm'
 import "./App.css";
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
           <Switch>
             <Route path="/movies/:id" component={MovieForm} />
             <Route path="/movies" component={Movies} />
+            <Route path="/movies/new" component={NewMovieForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/registration" component={Registration} />
             <Route path="/customers" component={Customers} />
