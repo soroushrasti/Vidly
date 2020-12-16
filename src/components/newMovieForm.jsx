@@ -1,25 +1,38 @@
 import React from 'react';
 import Form from './common/form'
 import Joi from 'joi-browser'
-
+import { getMovies } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
 
 class NewMovieForm extends Form {
     state = { 
         data:{
             title:'',
-            genre:'',
+            genreId:'',
             numberOfStuck:'',
             rate:'',
 
         },
+        genre:[],
         errors:{}
      }
      schema={
+         _id:Joi.string(),
         title:Joi.string().required().label('Title'),
-        genre:Joi.string().required().list().label('Genre'),
-        numberOfStuck:Joi.string().required().label('Number in Stock'),
-        rate:Joi.string().required().list().label('Rate')
+        genreId:Joi.string().required().list().label('Genre'),
+        numberOfStuck:Joi.number().required().label('Number in Stock'),
+        rate:Joi.string().required().min(0).max(10).label('Rate')
 
+    }
+
+    componentDidMount(){
+        const genre=getGenres()
+        this.setState({genre})
+        const movieId=this.props.match.params._id
+        if (movieId==='new') return;
+        const movie=getMovies(movieId)
+        if (!movie) return this.props.history.replace('/not-found')
+        this.setState({data:this.mapToViewModel(movie)});
     }
 
     doSubmit=()=>{
