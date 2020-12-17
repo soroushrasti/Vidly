@@ -34,6 +34,15 @@ class NewMovieForm extends Form {
         if (!movie) return this.props.history.replace('/not-found')
         this.setState({data:this.mapToViewModel(movie)});
     }
+    mapToViewModel(movie){
+        return{
+            _id:movie._id,
+            title:movie.title,
+            genreId:movie.genre._id,
+            numberOfStuck:movie.numberInStock,
+            rate: movie.dailyRentalRate
+        }
+    }
 
     doSubmit=()=>{
         console.log('submitted')
