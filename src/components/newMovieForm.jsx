@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from './common/form'
 import Joi from 'joi-browser'
-import { getMovies } from "../services/fakeMovieService";
+import { getMovies, saveMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 
 class NewMovieForm extends Form {
@@ -45,16 +45,17 @@ class NewMovieForm extends Form {
     }
 
     doSubmit=()=>{
-        console.log('submitted')
+        saveMovie(this.state.data)
+        this.props.history.push('/movies')
     }
     render() { 
         return ( 
             <div>
-                <h1>Register</h1>
+                <h1>Movie Form</h1>
                 <form onSubmit={this.handleSubmit} action="">
                   {this.renderInput('title','Title')}
-                  {this.renderInput('genre','Genre')}
-                  {this.renderInput('numberOfStuck','Number in Stock')}
+                  {this.renderSelect('genreId','Genre', this.state.genre)}
+                  {this.renderInput('numberOfStuck','Number in Stock','number')}
                   {this.renderInput('rate','Rate')}
                   {this.renderButton('Save')}
                 </form>
