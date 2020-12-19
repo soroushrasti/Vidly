@@ -17,9 +17,9 @@ class App extends Component {
       <NavBar />
       <main className="container">
           <Switch>
-            <Route path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" component={Movies} />
-            <Route path="/movies/new" component={NewMovieForm} />
+            <Route path="/movies" exact component={Movies} />
+            <Route path="/movies/new" exact component={NewMovieForm} />
+            <Route path="/movies/:id" exact component={MovieForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/registration" component={Registration} />
             <Route path="/customers" component={Customers} />

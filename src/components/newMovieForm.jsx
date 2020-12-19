@@ -19,7 +19,7 @@ class NewMovieForm extends Form {
      schema={
          _id:Joi.string(),
         title:Joi.string().required().label('Title'),
-        genreId:Joi.string().required().list().label('Genre'),
+        genreId:Joi.string().required().label('Genre'),
         numberOfStuck:Joi.number().required().label('Number in Stock'),
         rate:Joi.string().required().min(0).max(10).label('Rate')
 
@@ -51,13 +51,13 @@ class NewMovieForm extends Form {
     render() { 
         return ( 
             <div>
-                <h1>Movie Form</h1>
+                <h1>Movie Form1</h1>
                 <form onSubmit={this.handleSubmit} action="">
                   {this.renderInput('title','Title')}
                   {this.renderSelect('genreId','Genre', this.state.genre)}
                   {this.renderInput('numberOfStuck','Number in Stock','number')}
                   {this.renderInput('rate','Rate')}
-                  {this.renderButton('Save')}
+                  {this.renderButton('Save1')}
                 </form>
             </div>
          );

@@ -58,7 +58,7 @@ renderInput=(name,label,type='text')=>{
     )
 }
 
-renderSelect=(name,label,options)=>{
+renderSelect=(name,label,type)=>{
     const {data,errors}=this.state
     return(
         <Select  name={name} 
