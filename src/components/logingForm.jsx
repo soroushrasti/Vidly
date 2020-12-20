@@ -11,13 +11,10 @@ class LoginForm extends Form {
         },
         errors:{}
      }
-
     schema={
         username:Joi.string().required().label('Username'),
         password:Joi.string().required().label('Password')
     }
-
-
     render() { 
         return ( 
         <div>
@@ -28,9 +25,6 @@ class LoginForm extends Form {
                   {this.renderButton('Log in')}
                 </form>
         </div>
-            
-            );
-    }
-}
+            );}}
  
 export default LoginForm;

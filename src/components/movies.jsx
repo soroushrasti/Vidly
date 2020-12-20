@@ -7,7 +7,7 @@ import { getGenres } from "../services/fakeGenreService";
 import { paginate } from "../utils/paginate";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-
+import SearchBox from './searchBox'
 
 class Movies extends Component {
   state = {
@@ -15,7 +15,9 @@ class Movies extends Component {
     genres: [],
     currentPage: 1,
     pageSize: 4,
-    sortColumn: { path: "title", order: "asc" }
+    sortColumn: { path: "title", order: "asc" },
+    searchGenre:null
+
   };
 
   componentDidMount() {
@@ -40,9 +42,12 @@ class Movies extends Component {
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
-
+ handleSearch=query=>{
+   this.setState({searchQuery:query
+  selectedGenre:null, currentPage:1 })
+ }
   handleGenreSelect = genre => {
-    this.setState({ selectedGenre: genre, currentPage: 1 });
+    this.setState({ selectedGenre: genre, currentPage: 1 ,searchQuery:""});
   };
 
   handleSort = sortColumn => {
@@ -57,7 +62,17 @@ class Movies extends Component {
       selectedGenre,
       movies: allMovies
     } = this.state;
-
+     let filtered=allMovies;
+     if(searchQuery)
+     filtered=allMovies.filter(
+       m=> m.title.toLowerCase().startWith(
+         searchQuery.toLowerCase()
+       )
+     );
+     else if (selectedGenre && selectedGenre._id)
+     filtered=allMovies.filter(m=>m.genre._id=== selectedGenre._id);
+     const sorted=_.orderBy(filtered,[sortColumn.path],[sortColumn.order]);
+     
     const filtered =
       selectedGenre && selectedGenre._id
         ? allMovies.filter(m => m.genre._id === selectedGenre._id)
@@ -90,6 +105,7 @@ class Movies extends Component {
         <div className="col">
           <Link to='/movies/new' style={{marginBottom:20}} className="btn btn-primary">New Movie</Link>
           <p>Showing {totalCount} movies in the database.</p>
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             movies={movies}
             sortColumn={sortColumn}
