@@ -16,8 +16,8 @@ class Movies extends Component {
     currentPage: 1,
     pageSize: 4,
     sortColumn: { path: "title", order: "asc" },
-    searchGenre:null
-
+    searchGenre:null,
+    searchQuery:''
   };
 
   componentDidMount() {
@@ -43,7 +43,7 @@ class Movies extends Component {
     this.setState({ currentPage: page });
   };
  handleSearch=query=>{
-   this.setState({searchQuery:query
+   this.setState({searchQuery:query,
   selectedGenre:null, currentPage:1 })
  }
   handleGenreSelect = genre => {
@@ -60,25 +60,17 @@ class Movies extends Component {
       currentPage,
       sortColumn,
       selectedGenre,
-      movies: allMovies
+      movies: allMovies,
+      searchQuery
     } = this.state;
      let filtered=allMovies;
-     if(searchQuery)
-     filtered=allMovies.filter(
-       m=> m.title.toLowerCase().startWith(
-         searchQuery.toLowerCase()
-       )
+     if(searchQuery) filtered=allMovies.filter(
+       m=> m.title.toLowerCase().startsWith(
+        searchQuery.toLowerCase()
+      )
      );
-     else if (selectedGenre && selectedGenre._id)
-     filtered=allMovies.filter(m=>m.genre._id=== selectedGenre._id);
+     else if (selectedGenre && selectedGenre._id) filtered=allMovies.filter(m=>m.genre._id=== selectedGenre._id);
      const sorted=_.orderBy(filtered,[sortColumn.path],[sortColumn.order]);
-     
-    const filtered =
-      selectedGenre && selectedGenre._id
-        ? allMovies.filter(m => m.genre._id === selectedGenre._id)
-        : allMovies;
-
-    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
     const movies = paginate(sorted, currentPage, pageSize);
 
@@ -105,7 +97,7 @@ class Movies extends Component {
         <div className="col">
           <Link to='/movies/new' style={{marginBottom:20}} className="btn btn-primary">New Movie</Link>
           <p>Showing {totalCount} movies in the database.</p>
-          <SearchBox value={searchQuery} onChange={this.handleSearch} />
+          <SearchBox value={this.state.searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             movies={movies}
             sortColumn={sortColumn}
