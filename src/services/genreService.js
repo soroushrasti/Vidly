@@ -1,4 +1,5 @@
 import http from './httpService'
+import config from '../config.json'
 
 export const genres = [
     { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
@@ -7,6 +8,6 @@ export const genres = [
   ];
   
   export function getGenres() {
-     return http.get('http://localhost:3900/api/genres')
+     return http.get(config.apiUrl+'/genres')
   }
   
