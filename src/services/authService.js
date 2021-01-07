@@ -1,11 +1,11 @@
 import http from './httpService'
 import config from '../config.json'
 
+const apiEndPoint=config.apiUrl+'/auth'
 
-export function register(user){
-    return http.post( config.apiUrl,{
-        email:user.username,
-        password:user.password,
-        name:user.name
+export function login(email,password){
+    return http.post( apiEndPoint,{
+        email,
+        password,
     })
 }
