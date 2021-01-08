@@ -8,6 +8,7 @@ import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import Logout from "./components/Logout"
 import jwtDecode from 'jwt-decode'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css' 
@@ -34,6 +35,7 @@ class App extends Component {
           <Switch>
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
+            <Route path="/logout" component={Logout} />
             <Route path="/movies/:id" component={MovieForm} />
             <Route path="/movies" component={Movies} />
             <Route path="/customers" component={Customers} />
